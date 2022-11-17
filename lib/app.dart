@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './screens/home/home_screen.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -36,14 +38,7 @@ class MyApp extends StatelessWidget {
 
       ),
 
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('E-Commerce App'),
-        ),
-        body: const Center(
-          child: Text('E-Commerce App'),
-        ),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
