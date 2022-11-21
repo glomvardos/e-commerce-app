@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-import './widgets/bottom_nav_bar.dart';
+import 'widgets/customer_bottom_nav_bar.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class CustomerHomeScreen extends StatefulWidget {
+  const CustomerHomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CustomerHomeScreen> createState() => _CustomerHomeScreen();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CustomerHomeScreen extends State<CustomerHomeScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {},
         child: const Icon(Icons.shopping_cart),
       ),
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: CustomerBottomNavBar(
         selectedIndex: _selectedIndex,
         onItemTapped: _onItemTapped,
       ),
