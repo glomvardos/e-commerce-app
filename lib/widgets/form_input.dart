@@ -4,6 +4,7 @@ class FormInput extends StatelessWidget {
   const FormInput({
     Key? key,
     required this.labelText,
+    required this.controller,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.maxLines = 1,
@@ -13,10 +14,18 @@ class FormInput extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final int maxLines;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      validator: (value) {
+        if (value!.isEmpty) {
+          return '';
+        }
+        return null;
+      },
       showCursor: true,
       cursorColor: Theme.of(context).colorScheme.secondary,
       keyboardType: keyboardType,
@@ -27,6 +36,7 @@ class FormInput extends StatelessWidget {
         color: Color(0xFFEEEEEE),
       ),
       decoration: InputDecoration(
+        errorStyle: const TextStyle(height: 0),
         alignLabelWithHint: true,
         labelText: labelText,
         labelStyle: const TextStyle(color: Color(0xFFEEEEEE), fontSize: 14),
@@ -47,6 +57,11 @@ class FormInput extends StatelessWidget {
           ),
         ),
         errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.redAccent,
+          ),
+        ),
+        focusedErrorBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.redAccent,
           ),
