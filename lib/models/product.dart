@@ -17,26 +17,21 @@ class Product {
     required this.description,
   });
 
-  fromJson(Map<String, dynamic> json) {
-    return Product(
-      id: json['id'],
-      name: json['name'],
-      category: json['category'],
-      price: json['price'],
-      quantity: json['quantity'],
-      discount: json['discount'],
-      description: json['description'],
-    );
-  }
+  Product.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        name = json['name'],
+        category = json['category'],
+        price = json['price'],
+        quantity = json['quantity'],
+        discount = json['discount'],
+        description = json['description'];
 
-  toJson() {
-    return {
-      'name': name,
-      'category': category,
-      'price': price,
-      'quantity': quantity,
-      'discount': discount,
-      'description': description,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'category': category,
+        'price': price,
+        'quantity': quantity,
+        'discount': discount,
+        'description': description,
+      };
 }

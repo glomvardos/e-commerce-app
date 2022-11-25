@@ -9,9 +9,19 @@ class ProductsApiService implements ProductsService {
   ProductsApiService({required this.dio});
 
   @override
+  Future<List<Product>> getProducts() async {
+    final response = await dio.get('/products/products/');
+    return List.generate(
+      response.data.length,
+          (index) => Product.fromJson(response.data[index]),
+    );
+  }
+
+  @override
   Future<Response> createProduct(Product product) async {
     try {
-      final response = await dio.post('/products/products/', data: product);
+      final response =
+      await dio.post('/products/products/', data: product.toJson());
       return response;
     } on DioError {
       rethrow;

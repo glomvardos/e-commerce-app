@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './widgets/admin_bottom_nav_bar.dart';
 import '../add_product_screen/add_product_screen.dart';
+import '../products_screen/products_screen.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }
 
   final List<Widget> _screens = const [
-    Text('Products'),
+    ProductsScreen(),
     Text('Offers'),
   ];
 
@@ -30,8 +31,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       appBar: AppBar(
         title: const Text('Admin Home Screen'),
       ),
-      body: const Center(
-        child: Text('Admin Home Screen'),
+      body: Center(
+        child: _screens[_selectedIndex],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

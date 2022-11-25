@@ -12,6 +12,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'E-Commerce App',
         theme: ThemeData(
+          progressIndicatorTheme: const ProgressIndicatorThemeData(
+            color: Color(0xFF00ADB5),
+          ),
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: const Color(0xFF222831),
             secondary: const Color(0xFF00ADB5),
