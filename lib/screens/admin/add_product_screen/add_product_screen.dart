@@ -76,83 +76,78 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Add Product'),
-      ),
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : CustomScrollView(
-              physics: const ClampingScrollPhysics(),
-              slivers: [
-                SliverFillRemaining(
-                  hasScrollBody: false,
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    child: Form(
-                      key: _formKey,
-                      autovalidateMode: _autoValidate
-                          ? AutovalidateMode.always
-                          : AutovalidateMode.disabled,
-                      child: Column(
-                        children: [
-                          FormInput(
-                            labelText: 'Product Name',
-                            controller: _productNameController,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          FormInput(
-                            labelText: 'Product Price',
-                            controller: _productPriceController,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          FormInput(
-                            labelText: 'Product Category',
-                            controller: _productCategoryController,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          FormInput(
-                            labelText: 'Product Quantity',
-                            controller: _productQuantityController,
-                            keyboardType: const TextInputType.numberWithOptions(
-                                decimal: true),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          FormInput(
-                            labelText: 'Product Discount',
-                            controller: _productDiscountController,
-                            keyboardType: TextInputType.number,
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          FormInput(
-                            maxLines: 3,
-                            controller: _productDescriptionController,
-                            labelText: 'Product Description',
-                          ),
-                          Spacer(),
-                          PrimaryBtn(
-                            text: 'Submit',
-                            onClickHandler: _onAddNewProduct,
-                          ),
-                        ],
-                      ),
+    return _isLoading
+        ? const Center(
+            child: CircularProgressIndicator(),
+          )
+        : CustomScrollView(
+            physics: const ClampingScrollPhysics(),
+            slivers: [
+              SliverFillRemaining(
+                hasScrollBody: false,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Form(
+                    key: _formKey,
+                    autovalidateMode: _autoValidate
+                        ? AutovalidateMode.always
+                        : AutovalidateMode.disabled,
+                    child: Column(
+                      children: [
+                        FormInput(
+                          labelText: 'Product Name',
+                          controller: _productNameController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FormInput(
+                          labelText: 'Product Price',
+                          controller: _productPriceController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FormInput(
+                          labelText: 'Product Category',
+                          controller: _productCategoryController,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FormInput(
+                          labelText: 'Product Quantity',
+                          controller: _productQuantityController,
+                          keyboardType: const TextInputType.numberWithOptions(
+                              decimal: true),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FormInput(
+                          labelText: 'Product Discount',
+                          controller: _productDiscountController,
+                          keyboardType: TextInputType.number,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        FormInput(
+                          maxLines: 3,
+                          controller: _productDescriptionController,
+                          labelText: 'Product Description',
+                        ),
+                        Spacer(),
+                        PrimaryBtn(
+                          text: 'Submit',
+                          onClickHandler: _onAddNewProduct,
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
-    );
+              ),
+            ],
+          );
   }
 }

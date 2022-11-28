@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/authentication/authentication_bloc.dart';
 import '../services/auth_service/auth_service.dart';
 import '../services/products_service/products_service.dart';
+import '../services/categories_service/categories_service.dart';
 import './app.dart';
 
 void main() {
@@ -14,6 +15,11 @@ void main() {
       ),
       RepositoryProvider<ProductsService>(
         create: (_) => ProductsApiService(
+          dio: AuthApiService().client,
+        ),
+      ),
+      RepositoryProvider<CategoriesService>(
+        create: (_) => CategoriesApiService(
           dio: AuthApiService().client,
         ),
       ),

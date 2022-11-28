@@ -1,7 +1,7 @@
+import '../widgets/add_entries_tab_bar.dart';
 import 'package:flutter/material.dart';
 
 import './widgets/admin_bottom_nav_bar.dart';
-import '../add_product_screen/add_product_screen.dart';
 import '../products_screen/products_screen.dart';
 
 class AdminHomeScreen extends StatefulWidget {
@@ -37,7 +37,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
-            Navigator.of(context).pushNamed(AddProductScreen.routeName),
+            Navigator.of(context).pushNamed(AddEntriesTabBar.routeName),
         child: const Icon(Icons.add_rounded),
       ),
       bottomNavigationBar: AdminBottomNavBar(
