@@ -1,5 +1,5 @@
-import 'package:e_commerce_app/screens/admin/add_product_screen/add_product_screen.dart';
 import 'package:flutter/material.dart';
+import '../add_product_screen/add_product_screen.dart';
 
 class AddEntriesTabBar extends StatelessWidget {
   const AddEntriesTabBar({

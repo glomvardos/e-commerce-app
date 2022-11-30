@@ -1,9 +1,9 @@
-import 'package:e_commerce_app/utils/toast_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../models/product.dart';
-import '../../../services/products_service/products_service.dart';
+import '../../../../utils/toast_message.dart';
+import '../../../../data/models/product.dart';
+import '../../../../data/repositories/products_repository.dart';
 import '../../../widgets/form_input.dart';
 import '../../../widgets/primary_btn.dart';
 
@@ -47,7 +47,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       await context
-          .read<ProductsService>()
+          .read<ProductsRepository>()
           .createProduct(Product(
             name: _productNameController.text,
             price: double.parse(_productPriceController.text),
@@ -61,7 +61,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   context,
                   'Product has been added',
                 ),
-                Navigator.of(context).pop()
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/',
+                  (route) => false,
+                ),
               })
           .catchError((error) => {
                 ToastMessage.error(context, error),

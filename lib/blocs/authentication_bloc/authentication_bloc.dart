@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:e_commerce_app/services/auth_service/auth_service.dart';
 import 'package:equatable/equatable.dart';
+import '../../data/repositories/auth_repository.dart';
 
 part 'authentication_event.dart';
 
@@ -8,9 +8,9 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final AuthService authService;
+  final AuthRepository authRepository;
 
-  AuthenticationBloc({required this.authService})
+  AuthenticationBloc({required this.authRepository})
       : super(AuthenticationInitial()) {
     on<InitializeAuthentication>((event, emit) {
       emit(AuthenticationLoading());

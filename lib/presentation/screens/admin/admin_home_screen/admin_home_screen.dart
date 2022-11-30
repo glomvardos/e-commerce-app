@@ -1,8 +1,8 @@
-import '../widgets/add_entries_tab_bar.dart';
 import 'package:flutter/material.dart';
 
-import './widgets/admin_bottom_nav_bar.dart';
 import '../products_screen/products_screen.dart';
+import './widgets/admin_bottom_nav_bar.dart';
+import '../widgets/add_entries_tab_bar.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);

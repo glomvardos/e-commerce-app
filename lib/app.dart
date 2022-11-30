@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../screens/admin/admin_home_screen/admin_home_screen.dart';
-import '../screens/admin/widgets/add_entries_tab_bar.dart';
+import './presentation/screens/admin/admin_home_screen/admin_home_screen.dart';
+import './presentation/screens/admin/widgets/add_entries_tab_bar.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

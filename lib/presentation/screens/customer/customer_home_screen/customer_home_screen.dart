@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'widgets/customer_bottom_nav_bar.dart';
+import './widgets/customer_bottom_nav_bar.dart';
 
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({Key? key}) : super(key: key);

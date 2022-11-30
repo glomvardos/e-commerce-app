@@ -1,34 +1,37 @@
+import 'package:e_commerce_app/data/client/dio_client.dart';
+import 'package:e_commerce_app/data/repositories/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/authentication/authentication_bloc.dart';
-import '../services/auth_service/auth_service.dart';
-import '../services/products_service/products_service.dart';
-import '../services/categories_service/categories_service.dart';
+import './blocs/authentication_bloc/authentication_bloc.dart';
+import './data/repositories/products_repository.dart';
+import './data/repositories/categories_repository.dart';
 import './app.dart';
 
 void main() {
+  final dioClient = DioClient();
   runApp(MultiRepositoryProvider(
     providers: [
-      RepositoryProvider<AuthService>(
-        create: (_) => AuthApiService(),
+      RepositoryProvider<AuthRepository>(
+        create: (_) => AuthRepository(dio: dioClient.client),
       ),
-      RepositoryProvider<ProductsService>(
-        create: (_) => ProductsApiService(
-          dio: AuthApiService().client,
+      RepositoryProvider<ProductsRepository>(
+        create: (_) => ProductsRepository(
+          dio: dioClient.client,
         ),
       ),
-      RepositoryProvider<CategoriesService>(
-        create: (_) => CategoriesApiService(
-          dio: AuthApiService().client,
+      RepositoryProvider<CategoriesRepository>(
+        create: (_) => CategoriesRepository(
+          dio: dioClient.client,
         ),
       ),
     ],
     child: MultiBlocProvider(
       providers: [
         BlocProvider<AuthenticationBloc>(
-          create: (_) => AuthenticationBloc(authService: AuthApiService())
-            ..add(InitializeAuthentication()),
+          create: (context) =>
+              AuthenticationBloc(authRepository: context.read<AuthRepository>())
+                ..add(InitializeAuthentication()),
         )
       ],
       child: const MyApp(),

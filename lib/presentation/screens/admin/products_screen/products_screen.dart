@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../models/product.dart';
-import '../../../services/products_service/products_service.dart';
+import '../../../../data/models/product.dart';
+import '../../../../data/repositories/products_repository.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: context.read<ProductsService>().getProducts(),
+      future: context.read<ProductsRepository>().getProducts(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
@@ -26,6 +26,7 @@ class ProductsScreen extends StatelessWidget {
         if (snapshot.hasData) {
           final products = snapshot.data as List<Product>;
           return ListView.builder(
+            physics: const ClampingScrollPhysics(),
             itemCount: products.length,
             itemBuilder: (context, index) {
               return ListTile(
