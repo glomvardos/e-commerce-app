@@ -14,12 +14,35 @@ class AuthenticationLoading extends AuthenticationState {
   List<Object> get props => [];
 }
 
+class UnAuthenticated extends AuthenticationState {
+  @override
+  List<Object> get props => [];
+}
+
 class AuthenticationSuccess extends AuthenticationState {
   @override
   List<Object> get props => [];
 }
 
-class AuthenticationFailure extends AuthenticationState {
+class RegisterSuccess extends AuthenticationState {
   @override
   List<Object> get props => [];
+}
+
+class RegisterFailure extends AuthenticationState {
+  final DioError error;
+
+  const RegisterFailure({required this.error});
+
+  @override
+  List<Object> get props => [error];
+}
+
+class AuthenticationFailure extends AuthenticationState {
+  final DioError error;
+
+  const AuthenticationFailure({required this.error});
+
+  @override
+  List<Object> get props => [error];
 }

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class ToastMessage {
@@ -11,12 +12,12 @@ class ToastMessage {
     );
   }
 
-  static void error(BuildContext context, dynamic error) {
+  static void error(BuildContext context, DioError error) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.redAccent,
-        content:
-            Text(error.response!.data['message'] ?? 'Something went wrong'),
+        content: Text(
+            error.response?.data?.values?.first?[0] ?? 'Something went wrong'),
         duration: const Duration(seconds: 3),
       ),
     );

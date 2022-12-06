@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import '../../data/repositories/auth_repository.dart';
 
@@ -12,8 +13,25 @@ class AuthenticationBloc
 
   AuthenticationBloc({required this.authRepository})
       : super(AuthenticationInitial()) {
-    on<InitializeAuthentication>((event, emit) {
+    on<InitializeAuthentication>((event, emit) {});
+
+    on<RegisterUser>((event, emit) async {
       emit(AuthenticationLoading());
+
+      try {
+        await authRepository.register(
+          username: event.username,
+          firstname: event.firstname,
+          lastname: event.lastname,
+          email: event.email,
+          password: event.password,
+        );
+        emit(RegisterSuccess());
+      } on DioError catch (error) {
+        emit(
+          RegisterFailure(error: error),
+        );
+      }
     });
   }
 }
