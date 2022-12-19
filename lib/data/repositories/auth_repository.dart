@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dataproviders/auth_dataprovider.dart';
 
@@ -26,12 +27,16 @@ class AuthRepository implements AuthRepositoryInterface {
   @override
   Future<String?> login(
       {required String username, required String password}) async {
+    final SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+
     final response =
-        await authApi.login(username: username, password: password);
+    await authApi.login(username: username, password: password);
     final token = response.data['access'];
+
     if (token != null) {
+      await sharedPrefs.setString('accessToken', token);
       client.options.headers['Authorization'] = 'Bearer $token';
-      return response.data['access'];
+      return token;
     }
     return null;
   }

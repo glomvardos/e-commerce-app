@@ -46,3 +46,8 @@ class RegisterUser extends AuthenticationEvent {
         password,
       ];
 }
+
+class LogoutUser extends AuthenticationEvent {
+  @override
+  List<Object> get props => [];
+}

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/repositories/auth_repository.dart';
 
 part 'authentication_event.dart';
@@ -13,7 +14,13 @@ class AuthenticationBloc
 
   AuthenticationBloc({required this.authRepository})
       : super(AuthenticationInitial()) {
-    on<InitializeAuthentication>((event, emit) {});
+    on<InitializeAuthentication>((event, emit) async {
+      emit(AuthenticationLoading());
+      final SharedPreferences sharedPrefs =
+      await SharedPreferences.getInstance();
+      final token = sharedPrefs.getString('accessToken');
+      emit(token != null ? AuthenticationSuccess() : UnAuthenticated());
+    });
 
     on<LoginUser>((event, emit) async {
       emit(AuthenticationLoading());
@@ -42,6 +49,14 @@ class AuthenticationBloc
           RegisterFailure(error: error),
         );
       }
+    });
+
+    on<LogoutUser>((event, emit) async {
+      emit(AuthenticationLoading());
+      final SharedPreferences sharedPrefs =
+      await SharedPreferences.getInstance();
+      await sharedPrefs.remove('accessToken');
+      emit(UnAuthenticated());
     });
   }
 }
