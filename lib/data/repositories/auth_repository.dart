@@ -2,7 +2,12 @@ import 'package:dio/dio.dart';
 
 import '../dataproviders/auth_dataprovider.dart';
 
-abstract class AuthRepositoryService {
+abstract class AuthRepositoryInterface {
+  Future<String?> login({
+    required String username,
+    required String password,
+  });
+
   Future<Response> register({
     required String username,
     required String firstname,
@@ -12,11 +17,24 @@ abstract class AuthRepositoryService {
   });
 }
 
-class AuthRepository implements AuthRepositoryService {
+class AuthRepository implements AuthRepositoryInterface {
   final AuthApi authApi;
-  final Dio dio;
+  final Dio client;
 
-  AuthRepository({required this.dio}) : authApi = AuthApi(dio: dio);
+  AuthRepository({required this.client}) : authApi = AuthApi(client: client);
+
+  @override
+  Future<String?> login(
+      {required String username, required String password}) async {
+    final response =
+        await authApi.login(username: username, password: password);
+    final token = response.data['access'];
+    if (token != null) {
+      client.options.headers['Authorization'] = 'Bearer $token';
+      return response.data['access'];
+    }
+    return null;
+  }
 
   @override
   Future<Response> register({
@@ -26,14 +44,12 @@ class AuthRepository implements AuthRepositoryService {
     required String email,
     required String password,
   }) async {
-    final Response response = await authApi.register(
+    return await authApi.register(
       username: username,
       firstname: firstname,
       lastname: lastname,
       email: email,
       password: password,
     );
-
-    return response;
   }
 }

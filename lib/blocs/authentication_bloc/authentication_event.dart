@@ -9,6 +9,19 @@ class InitializeAuthentication extends AuthenticationEvent {
   List<Object> get props => [];
 }
 
+class LoginUser extends AuthenticationEvent {
+  final String username;
+  final String password;
+
+  const LoginUser({
+    required this.username,
+    required this.password,
+  });
+
+  @override
+  List<Object> get props => [username, password];
+}
+
 class RegisterUser extends AuthenticationEvent {
   final String username;
   final String firstname;

@@ -3,13 +3,13 @@ import 'package:dio/dio.dart';
 import '../models/product.dart';
 import '../dataproviders/products_dataprovider.dart';
 
-abstract class ProductsRepositoryService {
+abstract class ProductsRepositoryInterface {
   Future<List<Product>> getProducts();
 
   Future<Response> createProduct(Product product);
 }
 
-class ProductsRepository implements ProductsRepositoryService {
+class ProductsRepository implements ProductsRepositoryInterface {
   final ProductsApi productsApi;
   final Dio dio;
 
@@ -26,11 +26,7 @@ class ProductsRepository implements ProductsRepositoryService {
 
   @override
   Future<Response> createProduct(Product product) async {
-    try {
-      final response = await productsApi.createProduct(product);
-      return response;
-    } on DioError {
-      rethrow;
-    }
+    final response = await productsApi.createProduct(product);
+    return response;
   }
 }

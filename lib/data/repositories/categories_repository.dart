@@ -4,11 +4,11 @@ import '../dataproviders/categories_dataprovider.dart';
 
 import '../models/category.dart';
 
-abstract class CategoriesRepositoryService {
+abstract class CategoriesRepositoryInterface {
   Future<List<Category>> getCategories();
 }
 
-class CategoriesRepository implements CategoriesRepositoryService {
+class CategoriesRepository implements CategoriesRepositoryInterface {
   final CategoriesApi categoriesApi;
   final Dio dio;
 

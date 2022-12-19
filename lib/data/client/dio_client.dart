@@ -7,6 +7,4 @@ class DioClient {
   ));
 
   get client => _dio;
-
-  DioClient();
 }

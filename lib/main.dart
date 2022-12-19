@@ -13,7 +13,7 @@ void main() {
   runApp(MultiRepositoryProvider(
     providers: [
       RepositoryProvider<AuthRepository>(
-        create: (_) => AuthRepository(dio: dioClient.client),
+        create: (_) => AuthRepository(client: dioClient.client),
       ),
       RepositoryProvider<ProductsRepository>(
         create: (_) => ProductsRepository(

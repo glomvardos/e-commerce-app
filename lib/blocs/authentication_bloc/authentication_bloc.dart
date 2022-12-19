@@ -15,9 +15,19 @@ class AuthenticationBloc
       : super(AuthenticationInitial()) {
     on<InitializeAuthentication>((event, emit) {});
 
+    on<LoginUser>((event, emit) async {
+      emit(AuthenticationLoading());
+      try {
+        final token = await authRepository.login(
+            username: event.username, password: event.password);
+        emit(token != null ? AuthenticationSuccess() : UnAuthenticated());
+      } on DioError catch (error) {
+        emit(AuthenticationFailure(error: error));
+      }
+    });
+
     on<RegisterUser>((event, emit) async {
       emit(AuthenticationLoading());
-
       try {
         await authRepository.register(
           username: event.username,

@@ -1,9 +1,15 @@
 import 'package:dio/dio.dart';
 
 class AuthApi {
-  final Dio dio;
+  final Dio client;
 
-  AuthApi({required this.dio});
+  AuthApi({required this.client});
+
+  Future<Response> login(
+      {required String username, required String password}) async {
+    return client
+        .post('/login/', data: {"username": username, "password": password});
+  }
 
   Future<Response> register({
     required String username,
@@ -12,7 +18,7 @@ class AuthApi {
     required String email,
     required String password,
   }) async {
-    return dio.post('/users/user/', data: {
+    return client.post('/users/user/', data: {
       "username": username,
       "first_name": firstname,
       "last_name": lastname,

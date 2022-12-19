@@ -24,19 +24,28 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  @override void dispose() {
+    _usernameController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     void onRegisterUser() {
       if (_formKey.currentState!.validate()) {
         context.read<AuthenticationBloc>().add(
-              RegisterUser(
-                username: _usernameController.text.trim(),
-                firstname: _firstnameController.text.trim(),
-                lastname: _lastnameController.text.trim(),
-                email: _emailController.text.trim(),
-                password: _passwordController.text.trim(),
-              ),
-            );
+          RegisterUser(
+            username: _usernameController.text.trim(),
+            firstname: _firstnameController.text.trim(),
+            lastname: _lastnameController.text.trim(),
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+          ),
+        );
       } else {
         setState(() {
           _autoValidate = true;
@@ -73,7 +82,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   children: [
                     Card(
                       margin: const EdgeInsets.all(20),
-                      color: Theme.of(context).colorScheme.primary,
+                      color: Theme
+                          .of(context)
+                          .colorScheme
+                          .primary,
                       elevation: 5,
                       child: Padding(
                         padding: const EdgeInsets.only(

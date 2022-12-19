@@ -1,4 +1,6 @@
+import 'package:e_commerce_app/blocs/authentication_bloc/authentication_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../register_screen.dart';
 import './auth_nav_btn.dart';
@@ -13,14 +15,35 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  bool _isLoading = false;
   bool _autoValidate = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    void onLoginUser() {
+      if (_formKey.currentState!.validate()) {
+        context.read<AuthenticationBloc>().add(
+              LoginUser(
+                username: _usernameController.text.trim(),
+                password: _passwordController.text.trim(),
+              ),
+            );
+      } else {
+        setState(() {
+          _autoValidate = true;
+        });
+      }
+    }
+
     return Center(
       child: Card(
         color: Theme.of(context).colorScheme.primary,
@@ -54,7 +77,7 @@ class _LoginFormState extends State<LoginForm> {
                 const SizedBox(height: 15),
                 PrimaryBtn(
                   text: 'Login',
-                  onClickHandler: () {},
+                  onClickHandler: onLoginUser,
                 ),
                 AuthNavButton(
                   text: "Don't have an account?",
