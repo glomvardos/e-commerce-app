@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import './auth_nav_btn.dart';
-import '../../../widgets/form_input.dart';
-import '../../../widgets/primary_btn.dart';
+import '../../../widgets/form/form_input.dart';
+import '../../../widgets/ui/primary_btn.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -24,7 +24,8 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  @override void dispose() {
+  @override
+  void dispose() {
     _usernameController.dispose();
     _firstnameController.dispose();
     _lastnameController.dispose();
@@ -38,14 +39,14 @@ class _RegisterFormState extends State<RegisterForm> {
     void onRegisterUser() {
       if (_formKey.currentState!.validate()) {
         context.read<AuthenticationBloc>().add(
-          RegisterUser(
-            username: _usernameController.text.trim(),
-            firstname: _firstnameController.text.trim(),
-            lastname: _lastnameController.text.trim(),
-            email: _emailController.text.trim(),
-            password: _passwordController.text.trim(),
-          ),
-        );
+              RegisterUser(
+                username: _usernameController.text.trim(),
+                firstname: _firstnameController.text.trim(),
+                lastname: _lastnameController.text.trim(),
+                email: _emailController.text.trim(),
+                password: _passwordController.text.trim(),
+              ),
+            );
       } else {
         setState(() {
           _autoValidate = true;
@@ -82,10 +83,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   children: [
                     Card(
                       margin: const EdgeInsets.all(20),
-                      color: Theme
-                          .of(context)
-                          .colorScheme
-                          .primary,
+                      color: Theme.of(context).colorScheme.primary,
                       elevation: 5,
                       child: Padding(
                         padding: const EdgeInsets.only(

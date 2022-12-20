@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../register_screen.dart';
 import './auth_nav_btn.dart';
-import '../../../widgets/form_input.dart';
-import '../../../widgets/primary_btn.dart';
+import '../../../widgets/form/form_input.dart';
+import '../../../widgets/ui/primary_btn.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);

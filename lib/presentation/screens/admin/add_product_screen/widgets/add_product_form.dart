@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../data/models/product.dart';
 import '../../../../../data/repositories/products_repository.dart';
-import '../../../../widgets/form_input.dart';
-import '../../../../widgets/primary_btn.dart';
+import '../../../../widgets/form/form_input.dart';
+import '../../../../widgets/ui/primary_btn.dart';
 import '../../../../../utils/toast_message.dart';
 
 class AddProductForm extends StatefulWidget {
