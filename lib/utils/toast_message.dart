@@ -16,8 +16,7 @@ class ToastMessage {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.redAccent,
-        content: Text(
-            error.response?.data?.values?.first?[0] ?? 'Something went wrong'),
+        content: Text(error.response!.data['detail'] ?? 'Something went wrong'),
         duration: const Duration(seconds: 3),
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../products_screen/products_screen.dart';
 import './widgets/admin_bottom_nav_bar.dart';
 import '../widgets/add_entries_tab_bar.dart';
+import '../../../widgets/drawer/drawer_menu.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const DrawerMenu(),
       appBar: AppBar(
         title: const Text('Admin Home Screen'),
       ),

@@ -62,7 +62,14 @@ class _RegisterFormState extends State<RegisterForm> {
           Navigator.of(context).pop();
         }
         if (state is RegisterFailure) {
-          ToastMessage.error(context, state.error);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.redAccent,
+              content: Text(state.error.response?.data?.values?.first?[0] ??
+                  'Something went wrong'),
+              duration: const Duration(seconds: 3),
+            ),
+          );
         }
       },
       builder: (_, state) {

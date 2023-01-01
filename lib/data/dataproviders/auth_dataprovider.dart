@@ -27,4 +27,8 @@ class AuthApi {
       "password": password
     });
   }
+
+  Future<Response> getAuthUser() async {
+    return client.get('/users/user/me/');
+  }
 }

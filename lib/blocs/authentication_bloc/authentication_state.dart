@@ -19,7 +19,12 @@ class UnAuthenticated extends AuthenticationState {
   List<Object> get props => [];
 }
 
-class AuthenticationSuccess extends AuthenticationState {
+class AuthenticationSuccessAdmin extends AuthenticationState {
+  @override
+  List<Object> get props => [];
+}
+
+class AuthenticationSuccessCustomer extends AuthenticationState {
   @override
   List<Object> get props => [];
 }

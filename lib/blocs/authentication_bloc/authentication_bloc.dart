@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../data/repositories/auth_repository.dart';
+import '../../data/models/user.dart';
 
 part 'authentication_event.dart';
 
@@ -17,17 +20,45 @@ class AuthenticationBloc
     on<InitializeAuthentication>((event, emit) async {
       emit(AuthenticationLoading());
       final SharedPreferences sharedPrefs =
-      await SharedPreferences.getInstance();
+          await SharedPreferences.getInstance();
+
       final token = sharedPrefs.getString('accessToken');
-      emit(token != null ? AuthenticationSuccess() : UnAuthenticated());
+      final user = sharedPrefs.getString('user');
+
+      if (token != null && user != null) {
+        final authUser =
+            User.fromJson(json.decode(sharedPrefs.getString('user')!));
+
+        if (authUser.userRole == 'ADMIN') {
+          emit(AuthenticationSuccessAdmin());
+        }
+
+        if (authUser.userRole == 'CUSTOMER') {
+          emit(AuthenticationSuccessCustomer());
+        }
+      } else {
+        emit(UnAuthenticated());
+      }
     });
 
     on<LoginUser>((event, emit) async {
       emit(AuthenticationLoading());
       try {
-        final token = await authRepository.login(
-            username: event.username, password: event.password);
-        emit(token != null ? AuthenticationSuccess() : UnAuthenticated());
+        final authUser = await authRepository.login(
+          username: event.username,
+          password: event.password,
+        );
+        if (authUser != null) {
+          if (authUser.userRole == 'ADMIN') {
+            emit(AuthenticationSuccessAdmin());
+          }
+
+          if (authUser.userRole == 'CUSTOMER') {
+            emit(AuthenticationSuccessCustomer());
+          }
+        } else {
+          emit(UnAuthenticated());
+        }
       } on DioError catch (error) {
         emit(AuthenticationFailure(error: error));
       }
@@ -54,8 +85,9 @@ class AuthenticationBloc
     on<LogoutUser>((event, emit) async {
       emit(AuthenticationLoading());
       final SharedPreferences sharedPrefs =
-      await SharedPreferences.getInstance();
+          await SharedPreferences.getInstance();
       await sharedPrefs.remove('accessToken');
+      await sharedPrefs.remove('user');
       emit(UnAuthenticated());
     });
   }
